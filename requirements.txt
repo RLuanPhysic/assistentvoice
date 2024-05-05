@@ -1,1 +1,4 @@
-SpeechRecognitio==3.10.3
+SpeechRecognitio==3.10.3 # não usado
+vosk==0.3.45
+pyaudio==0.2.14
+sounddevice==0.4.6
