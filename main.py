@@ -5,6 +5,7 @@ import sounddevice as sd
 import pyttsx3
 import json
 from vosk import Model, KaldiRecognizer
+import core
 
 #sintese de fala
 engine = pyttsx3.init()
@@ -81,6 +82,7 @@ try:
         print("#" * 80)
 
         rec = KaldiRecognizer(model, args.samplerate)
+        #looping do reconhecimento de fala
         while True:
             data = q.get()
             if rec.AcceptWaveform(data):
@@ -90,7 +92,9 @@ try:
                 if result is not None:
                     text = result['text']
                     print(text)
-                    speak(text)
+                    #speak(text)
+                    if text == 'que horas são' or text == 'me diga as horas' or text == 'me diga às horas':
+                        speak(core.SystemInfo.get_time())
 
             if dump_fn is not None:
                 dump_fn.write(data)
