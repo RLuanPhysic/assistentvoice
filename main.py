@@ -2,9 +2,21 @@ import argparse
 import queue
 import sys
 import sounddevice as sd
-
+import pyttsx3
+import json
 from vosk import Model, KaldiRecognizer
 
+#sintese de fala
+engine = pyttsx3.init()
+voices = engine.getProperty('voices')
+engine.setProperty('voice', voices[-2].id)#configura o tipo de idioma do sintetizador
+#função para chamar o sintetizador de fala
+def speak(text):
+    engine.say(text)
+    engine.runAndWait()
+
+
+# reconhecimento de fala
 model = Model('model')
 
 q = queue.Queue()
@@ -72,9 +84,14 @@ try:
         while True:
             data = q.get()
             if rec.AcceptWaveform(data):
-                print(rec.Result())
-            else:
-                print(rec.PartialResult())
+                result = rec.Result()
+                result = json.loads(result) 
+                
+                if result is not None:
+                    text = result['text']
+                    print(text)
+                    speak(text)
+
             if dump_fn is not None:
                 dump_fn.write(data)
 

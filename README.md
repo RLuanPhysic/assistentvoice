@@ -6,6 +6,6 @@ FOCO:
     rápido e expanspível.
 
 Técnologias:
-    Reconhecimento de voz
-    Síntese de voz
+    Reconhecimento de voz (vosk)
+    Síntese de voz(pyttsx3)
     Algum tipo de IA
